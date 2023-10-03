@@ -5,12 +5,21 @@
 //  Created by OLIVER MURRAY on 9/28/23.
 //
 
+protocol ViewControllerDelegate{
+    //like interfaces blank functions must rewrite
+    func changeName(s1: String)
+    
+}
+
+
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, ViewControllerDelegate {
+    
+    
 
     @IBOutlet weak var textOutlet: UITextField!
-    var pony = ""
+    var pony = "x"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +29,7 @@ class ViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         view.backgroundColor = UIColor.systemPink
+        print(pony)
     }
     
     
@@ -29,14 +39,21 @@ class ViewController: UIViewController {
          pony = textOutlet.text!
         performSegue(withIdentifier: "toRed", sender: self)
     }
-    
+    //auto called before segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
        // Next View controller giving access to next view controller
-        let nvc = segue.destination as!ViewControllerStack
+        let nvc = segue.destination as! ViewControllerStack
         nvc.name = pony
+        
+        nvc.delegate = self
         
     }
     
+    
+    func changeName(s1: String) {
+        pony = s1
+    }
+  
     
 }
 

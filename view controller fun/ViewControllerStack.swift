@@ -8,13 +8,14 @@
 import UIKit
 
 class ViewControllerStack: UIViewController {
-
-    @IBOutlet weak var buttonOutlet: UIButton!
+    @IBOutlet weak var redFieldOutlet: UITextField!
     
+    @IBOutlet weak var buttonOutlet: UIButton!
+    var delegate : ViewControllerDelegate!
     var name: String!
     override func viewDidLoad() {
         super.viewDidLoad()
-print(name)
+print(name!)
         // Do any additional setup after loading the view.
     }
     
@@ -26,5 +27,10 @@ print(name)
         performSegue(withIdentifier: "toThird", sender: self)
     }
     
-
+    @IBAction func changeAction(_ sender: Any) {
+        var name2 = redFieldOutlet.text!
+        delegate.changeName(s1: name2)
+        
+    }
+    
 }
